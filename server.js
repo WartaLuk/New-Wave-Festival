@@ -18,11 +18,11 @@ app.get("/testimonials", (req, res) => {
 });
 
 app.get("/testimonials/:id", (req, res) => {
-  res.send(db[req.params.id -1]);
+  res.send(db[req.params.id - 1]);
 });
 
 app.get("/testimonials/random", (req, res) => {
-  res.send(db[Math.floor(Math.random() * db.length)])
+  res.send(db[Math.floor(Math.random() * db.length)]);
 });
 
 app.post("/testimonials", (req, res) => {
@@ -30,11 +30,15 @@ app.post("/testimonials", (req, res) => {
 });
 
 app.put("/testimonials/:id", (req, res) => {
-  res.send(db[req.params.id -1]);
+  res.send(db[req.params.id - 1]);
 });
 
 app.delete("/testimonials/:id", (req, res) => {
-  res.send(db[req.params.id -1]);
+  res.send(db[req.params.id - 1]);
+});
+
+app.use((req, res) => {
+  res.status(404).json("404 not found...");
 });
 
 app.listen(8000, () => {
