@@ -1,20 +1,24 @@
 const express = require("express");
 const randomID = require("@warta/randomid--enerator");
+const db = require("./db")
+
+const testimonials = db.testimonials;
 
 const app = express();
+
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.get("/testimonials", (req, res) => {
-  res.send(db);
+  res.send(testimonials);
 });
 
 app.get("/testimonials/:id", (req, res) => {
-  res.send(db[req.params.id - 1]);
+  res.send(testimonials[req.params.id - 1]);
 });
 
 app.get("/testimonials/random", (req, res) => {
-  res.send(db[Math.floor(Math.random() * db.length)]);
+  res.send(testimonials[Math.floor(Math.random() * db.length)]);
 });
 
 app.post("/testimonials", (req, res) => {
@@ -28,7 +32,7 @@ app.post("/testimonials", (req, res) => {
 app.put("/testimonials/:id", (req, res) => {
   const { author, text } = req.body;
   const id = req.params.id - 1;
-  const testimonial = db[id];
+  const testimonial = testimonials[id];
   testimonial.author = author;
   testimonial.text = text
   res.json({ message: "OK" });
@@ -36,7 +40,7 @@ app.put("/testimonials/:id", (req, res) => {
 
 app.delete("/testimonials/:id", (req, res) => {
   const id = req.params.id - 1;
-  db.splice(db[id]);
+  testimonials.splice(testimonials[id]);
   res.json({ message: "ok" });
 });
 
