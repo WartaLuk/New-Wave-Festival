@@ -1,15 +1,6 @@
 const express = require("express");
 const randomID = require("@warta/randomid--enerator");
 
-const db = [
-  { id: 1, author: "John Doe", text: "This company is worth every coin!" },
-  {
-    id: 2,
-    author: "Amanda Doe",
-    text: "They really know how to make you happy.",
-  },
-];
-
 const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -39,7 +30,7 @@ app.put("/testimonials/:id", (req, res) => {
   const id = req.params.id - 1;
   const testimonial = db[id];
   testimonial.author = author;
-  testimonial.text = text;
+  testimonial.text = text
   res.json({ message: "OK" });
 });
 
