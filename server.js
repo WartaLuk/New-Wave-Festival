@@ -25,7 +25,7 @@ app.post("/testimonials", (req, res) => {
   const { author, text } = req.body;
   const id = randomID(20);
   const newTestimonials = { id, author, text };
-  db.push(newTestimonials);
+  testimonials.push(newTestimonials);
   res.json({ message: "OK" });
 });
 
