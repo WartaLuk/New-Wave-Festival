@@ -6,8 +6,9 @@ const cors = require("cors");
 const concerts = db.concerts;
 
 //IMPORT ROUTES
-const testimonialsRoutes = require("./routes/testimonials.routes.js");
-const seatsRoutes = require("./routes/seats.routes.js");
+const testimonialsRoutes = require("./routes/testimonials.routes");
+const seatsRoutes = require("./routes/seats.routes");
+const concertsRoutes = require("./routes/concerts.routes");
 
 const app = express();
 
@@ -15,7 +16,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
 app.use("/api/", testimonialsRoutes);
-app.use("/api", concertRoutes);
+app.use("/api", concertsRoutes);
 app.use("/api", seatsRoutes);
 
 app.use((req, res) => {
