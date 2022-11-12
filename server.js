@@ -3,51 +3,20 @@ const randomID = require("@warta/randomid--enerator");
 const db = require("./db");
 const cors = require("cors");
 
-const seats = db.seats;
 const concerts = db.concerts;
 
 //IMPORT ROUTES
-const testimonialRoutes = require("./routes/testimonials.routes.js");
-
+const testimonialsRoutes = require("./routes/testimonials.routes.js");
+const seatsRoutes = require("./routes/seats.routes.js");
 
 const app = express();
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
-app.use("/api/", testimonialRoutes);
+app.use("/api/", testimonialsRoutes);
 
-//SEATS
-app.get("/seats", (req, res) => {
-  res.send(seats);
-});
 
-app.get("/seats/:id", (req, res) => {
-  res.send(seats[req.params.id - 1]);
-});
-
-app.get("/seats/random", (req, res) => {
-  res.send(seats[Math.floor(Math.random() * seats.length)]);
-});
-
-app.post("/seats", (req, res) => {
-  const { day, seat, client, email } = req.body;
-  const id = randomID(20);
-  const newSeat = { id, day, seat, client, email };
-  seats.push(newSeat);
-  res.json({ message: "OK" });
-});
-
-app.put("/seats/:id", (req, res) => {
-  const { day, seat, client, email } = req.body;
-  const id = req.params.id - 1;
-  const editSeat = seats[id];
-  editSeat.day = day;
-  editSeat.seat = seat;
-  editSeat.client = client;
-  editSeat.email = email;
-  res.json({ message: "OK" });
-});
 
 //CONCERTS
 app.get("/concerts", (req, res) => {
