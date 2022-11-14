@@ -1,9 +1,5 @@
 const express = require("express");
-const randomID = require("@warta/randomid--enerator");
-const db = require("./db");
 const cors = require("cors");
-
-const concerts = db.concerts;
 
 //IMPORT ROUTES
 const testimonialsRoutes = require("./routes/testimonials.routes");
@@ -23,6 +19,6 @@ app.use((req, res) => {
   res.status(404).json("404 not found...");
 });
 
-app.listen(8000, () => {
+app.listen(process.env.PORT || 8000, () => {
   console.log("Server is running on port: 8000");
 });
