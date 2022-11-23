@@ -21,9 +21,12 @@ app.use("/api/", testimonialRoutes);
 app.use("/api", concertRoutes);
 app.use("/api", seatsRoutes);
 
-mongoose.connect("mongodb://localhost:28019", {
-  useNewUrlParser: true,
-});
+mongoose.connect(
+  "mongodb+srv://admindb:sHH4iv4uKUJFZSKb@cluster0.u78nx1a.mongodb.net/new-wave",
+  {
+    useNewUrlParser: true,
+  }
+);
 const db = mongoose.connection;
 
 db.once("open", () => {
