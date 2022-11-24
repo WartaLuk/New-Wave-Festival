@@ -4,15 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "set NODE_ENV=test&& mocha \"./{,!(node_modules|client)/**/}*.test.js\"",
     "build": "cd client && npm install && npm build"
   },
   "author": "Łukasz Wartałowicz",
   "license": "ISC",
   "dependencies": {
     "@warta/randomid--enerator": "^1.0.1",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "mocha": "^6.2.1",
     "mongoose": "^5.13.15",
     "node": "^16.14.0",
     "nodemon": "^2.0.20",
