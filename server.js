@@ -3,7 +3,6 @@ const path = require("path");
 const cors = require("cors");
 const socket = require("socket.io");
 const mongoose = require("mongoose");
-
 //import routes
 const testimonialRoutes = require("./routes/testimonials.routes");
 const concertRoutes = require("./routes/concerts.routes");
@@ -20,31 +19,25 @@ app.use((req, res, next) => {
 app.use("/api/", testimonialRoutes);
 app.use("/api", concertRoutes);
 app.use("/api", seatsRoutes);
-
 const NODE_ENV = process.env.NODE_ENV;
 let dbUri = "";
 
 if (NODE_ENV === "production")
-  dbUri =
-    "mongodb+srv://admindb:sHH4iv4uKUJFZSKb@cluster0.u78nx1a.mongodb.net/new-wave";
+  dbUri = process.env.DB_URL;
 else if (NODE_ENV === "test") dbUri = "mongodb://localhost:27017/new-wave-test";
 else dbUri = "mongodb://localhost:27017/new-wave";
 
 // connects our backend code with the database
 mongoose.connect(dbUri, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
-
 db.once("open", () => {
   console.log("Connected to the database");
 });
 db.on("error", (err) => console.log("Error " + err));
-
 const server = app.listen(process.env.PORT || 8000, () => {
   console.log("Server is running on port: 8000");
 });
-
 module.exports = server;
-
 const io = socket(server);
 io.on("connection", (socket) => {
   console.log("New socket! Its id – " + socket.id);

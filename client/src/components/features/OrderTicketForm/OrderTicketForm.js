@@ -14,24 +14,23 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   addSeatRequest,
   getRequests,
+  loadSeats,
   loadSeatsRequest,
 } from "../../../redux/seatsRedux";
-
+import io from "socket.io-client";
 import "./OrderTicketForm.scss";
 import SeatChooser from "./../SeatChooser/SeatChooser";
-
 const OrderTicketForm = () => {
   const dispatch = useDispatch();
   const requests = useSelector(getRequests);
   console.log(requests);
 
-  const delay = 120000;
+  const socket = io(process.env.PORT || "localhost:8000");
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      dispatch(loadSeatsRequest());
-    }, delay);
-    return () => clearInterval(interval);
+    socket.on("seatsUpdated", (seats) => {
+      dispatch(loadSeats(seats));
+    });
   }, []);
 
   const [order, setOrder] = useState({
@@ -41,25 +40,20 @@ const OrderTicketForm = () => {
     seat: "",
   });
   const [isError, setIsError] = useState(false);
-
   const updateSeat = (e, seatId) => {
     e.preventDefault();
     setOrder({ ...order, seat: seatId });
   };
-
   const updateTextField = ({ target }) => {
     const { value, name } = target;
     setOrder({ ...order, [name]: value });
   };
-
   const updateNumberField = ({ target }) => {
     const { value, name } = target;
     setOrder({ ...order, [name]: parseInt(value) });
   };
-
   const submitForm = async (e) => {
     e.preventDefault();
-
     if (order.client && order.email && order.day && order.seat) {
       await dispatch(addSeatRequest(order));
       dispatch(loadSeatsRequest());
@@ -74,7 +68,6 @@ const OrderTicketForm = () => {
       setIsError(true);
     }
   };
-
   return (
     <Form className="order-ticket-form" onSubmit={submitForm}>
       <Row>
@@ -161,5 +154,4 @@ const OrderTicketForm = () => {
     </Form>
   );
 };
-
 export default OrderTicketForm;
