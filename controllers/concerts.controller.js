@@ -3,6 +3,7 @@ const Seat = require("../models/seat.model");
 
 exports.getAll = async (req, res) => {
   try {
+    // res.json(await Concert.find());
     const seats = await Seat.find();
     let concerts = await Concert.find();
 
@@ -14,7 +15,6 @@ exports.getAll = async (req, res) => {
     res.status(500).json({ message: err });
   }
 };
-
 exports.getId = async (req, res) => {
   try {
     const con = await Concert.findById(req.params.id);
@@ -33,7 +33,6 @@ exports.getConcertByPerformer = async (req, res) => {
     res.status(500).json({ message: err });
   }
 };
-
 exports.getConcertByGenre = async (req, res) => {
   try {
     const gen = await Concert.find({ genre: req.params.genre });
@@ -43,7 +42,6 @@ exports.getConcertByGenre = async (req, res) => {
     res.status(500).json({ message: err });
   }
 };
-
 exports.getConcertByPrice = async (req, res) => {
   try {
     const price = await Concert.find({
@@ -64,7 +62,6 @@ exports.getConcertByDay = async (req, res) => {
     res.status(500).json({ message: err });
   }
 };
-
 exports.post = async (req, res) => {
   try {
     const { performer, genre, price, day, image } = req.body;
@@ -81,10 +78,8 @@ exports.post = async (req, res) => {
     res.status(500).json({ message: err });
   }
 };
-
 exports.put = async (req, res) => {
   const { performer, genre, price, day, image } = req.body;
-
   try {
     const con = await Concert.findById(req.params.id);
     if (con) {
@@ -106,7 +101,6 @@ exports.put = async (req, res) => {
     res.status(500).json({ message: err });
   }
 };
-
 exports.delete = async (req, res) => {
   try {
     const con = await Concert.findById(req.params.id);
