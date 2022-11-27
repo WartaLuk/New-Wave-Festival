@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const cors = require("cors");
+const helmet = require("helmet");
 const socket = require("socket.io");
 const mongoose = require("mongoose");
 //import routes
@@ -12,6 +13,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "/client/build")));
 app.use(cors());
+app.use(helmet());
+
 app.use((req, res, next) => {
   req.io = io;
   next();
@@ -22,8 +25,7 @@ app.use("/api", seatsRoutes);
 const NODE_ENV = process.env.NODE_ENV;
 let dbUri = "";
 
-if (NODE_ENV === "production")
-  dbUri = process.env.DB_URL;
+if (NODE_ENV === "production") dbUri = process.env.DB_URL;
 else if (NODE_ENV === "test") dbUri = "mongodb://localhost:27017/new-wave-test";
 else dbUri = "mongodb://localhost:27017/new-wave";
 
