@@ -27,10 +27,11 @@ let dbUri = "";
 
 if (NODE_ENV === "production") dbUri = process.env.DB_URL;
 else if (NODE_ENV === "test") dbUri = "mongodb://localhost:27017/new-wave-test";
-else dbUri = "mongodb://localhost:27017/new-wave";
+else dbUri = DB_URL;
 
 // connects our backend code with the database
 mongoose.connect(dbUri, { useNewUrlParser: true, useUnifiedTopology: true });
+
 const db = mongoose.connection;
 db.once("open", () => {
   console.log("Connected to the database");
