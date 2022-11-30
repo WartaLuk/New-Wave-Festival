@@ -22,17 +22,10 @@ app.use((req, res, next) => {
 app.use("/api/", testimonialRoutes);
 app.use("/api", concertRoutes);
 app.use("/api", seatsRoutes);
-// const NODE_ENV = process.env.NODE_ENV;
-// let dbUri = "";
 
-// if (NODE_ENV === "production") dbUri = process.env.DB_URL;
-// else if (NODE_ENV === "test") dbUri = "mongodb://localhost:27017/new-wave-test";
-// else dbUri = "mongodb+srv://admindb:sHH4iv4uKUJFZSKb@cluster0.u78nx1a.mongodb.net/new-wave";
 
-// // connects our backend code with the database
-// mongoose.connect(dbUri, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connect(
-  "mongodb+srv://admindb:sHH4iv4uKUJFZSKb@cluster0.u78nx1a.mongodb.net/new-wave",
+  process.env.DB_URL,
   {
     useNewUrlParser: true,
   }

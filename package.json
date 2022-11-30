@@ -5,12 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "set NODE_ENV=test&& mocha \"./{,!(node_modules|client)/**/}*.test.js\"",
-    "build": "cd client && npm install && npm build"
+    "build": "cd client && npm build"
   },
   "author": "Łukasz Wartałowicz",
   "license": "ISC",
   "dependencies": {
     "@warta/randomid--enerator": "^1.0.1",
+    "axios": "^1.2.0",
+    "bootstrap": "^5.2.3",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "cors": "^2.8.5",
@@ -22,7 +24,15 @@
     "node": "^16.14.0",
     "nodemon": "^2.0.20",
     "onchange": "^7.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-redux": "^8.0.5",
+    "react-router-dom": "^6.4.3",
+    "reactstrap": "^9.1.5",
+    "redux": "^4.2.0",
+    "redux-thunk": "^2.4.2",
     "snyk": "^1.235.0",
-    "socket.io": "^4.5.3"
+    "socket.io": "^4.5.3",
+    "socket.io-client": "^4.5.4"
   }
 }
